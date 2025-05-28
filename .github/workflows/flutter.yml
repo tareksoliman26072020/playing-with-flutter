@@ -14,10 +14,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
-      - name: Set up Flutter
+      - name: preparing
+        uses: actions/checkout@v4
+      - name: Set Up Flutter
         uses: subosito/flutter-action@v2
         with:
           channel: stable
           flutter-version: 3.32.0
-      - run: flutter --version
+        run: flutter --version
+      - name: Where Am I?
+        run: pwd
+      - name: Entering my-app
+        run: cd my_app && pwd
+      - name: Where am I again?
+        run: pwd
+#      - name: Fetch Flutter Dependencies
+#        run: flutter pub get
+#      - name: Build A Release APK
+#        run: flutter build apk --release
