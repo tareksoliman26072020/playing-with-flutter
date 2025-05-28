@@ -1,49 +1,33 @@
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-
 name: Flutter
 
 on:
-  push:
-    branches: [ "main" ]
   workflow_dispatch:
-    inputs:
-      build_upload_apk:
-        description: 'Build and upload APK?'
-        required: true
-        default: 'true'
-    
-jobs:
-  fetch-Flutter-dependencies:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: subosito/flutter-action@v2
-        with:
-          channel: stable
-          flutter-version: 3.32.0
-      - run: |
-          cd my_app
-          flutter pub get
-          
-  build-and-upload-release-APK:
-    if: ${{ github.event.inputs.build_upload_apk == 'true' }}
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: subosito/flutter-action@v2
-        with:
-          channel: stable
-          flutter-version: 3.32.0
-      - name: build APK
-        run: |
-          cd my_app
-          flutter build apk --release
 
-      - name: Upload APK As Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: app-release-apk
-          path: my_app/build/app/outputs/flutter-apk/app-release.apk
+jobs:
+  build:
+	  runs-on: ubuntu-latest
+	  steps:
+  	  - name: preparing
+    	  uses: actions/checkout@v4
+   	 
+    	- name: Set Up Flutter
+      	uses: subosito/flutter-action@v2
+    	  with:
+      	  channel: stable
+      	  flutter-version: 3.32.0
+     	 
+  	  - name: Fetch my_app's Flutter Dependencies
+    	  run: |
+      	  cd my_app
+      	  flutter pub get
+     	 
+  	  - name: Build A Release APK
+    	  run: |
+      	  cd my_app
+      	  flutter build apk --release
+
+  	  - name: Upload The Built APK As Artifact
+    	  uses: actions/upload-artifact@v4
+    	  with:
+      	  name: app-release-apk
+      	  path: my_app/build/app/outputs/flutter-apk/app-release.apk
