@@ -22,7 +22,7 @@ jobs:
           channel: stable
           flutter-version: 3.32.0
       - name: Check Flutter Version && Fetch Dependencies
-        run: >
+        run: |
           cd my_app
           flutter --version
           pwd
