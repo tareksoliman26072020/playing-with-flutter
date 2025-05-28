@@ -21,6 +21,7 @@ jobs:
         with:
           channel: stable
           flutter-version: 3.32.0
+      - name: Flutter Version
         run: flutter --version
       - name: Where Am I?
         run: pwd
