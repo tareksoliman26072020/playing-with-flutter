@@ -16,11 +16,6 @@ on:
         default: 'false'
     
 jobs:
-  prepare:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
   set-up-Flutter:
     runs-on: ubuntu-latest
     steps:
@@ -32,20 +27,16 @@ jobs:
   fetch-Flutter-dependencies:
     runs-on: ubuntu-latest
     steps:
-      - name: fetching
-        run: |
-          ls
-          echo "=========="
-          pwd
-          echo "=========="
+      - uses: actions/checkout@v4
+      - run: |
           cd my_app
-          echo "=========="
           flutter pub get
           
   build-and-upload-release-APK:
     if: ${{ github.event.inputs.build_upload_apk == 'true' }}
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - name: build APK
         run: |
           cd my_app
