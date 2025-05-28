@@ -16,15 +16,19 @@ jobs:
     steps:
       - name: preparing
         uses: actions/checkout@v4
+        
       - name: Set Up Flutter
         uses: subosito/flutter-action@v2
         with:
           channel: stable
           flutter-version: 3.32.0
-      - name: Check Flutter Version && Fetch Dependencies
+          
+      - name: Fetch my_app's Flutter Dependencies
         run: |
           cd my_app
-          flutter --version
-          pwd
-#      - name: Build A Release APK
-#        run: flutter build apk --release
+          flutter pub get
+          
+      - name: Build A Release APK
+        run: |
+          cd my_app
+          flutter build apk --release
