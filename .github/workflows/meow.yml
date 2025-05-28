@@ -5,6 +5,15 @@ on:
     branches:
       - main
   workflow_dispatch:
+    inputs:
+      dispatch1:
+        description: 'dispatch1?'
+        required: true
+        default: 'no'
+      dispatch2:
+        description: 'dispatch2?'
+        required: true
+        default: 'no'
 
 jobs:
   one:
@@ -13,8 +22,17 @@ jobs:
       - run: echo "One…"
 
   two:
-    needs: one
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'workflow_dispatch' }}     # only run this job on manual dispatch
+    if: >
+      ${{ github.event_name == 'workflow_dispatch' }} &&
+      ${{ github.event.inputs.dispatch1 == 'true' }}
     steps:
       - run: echo "Two…"
+
+  three:
+    runs-on: ubuntu-latest
+    if: >
+      ${{ github.event_name == 'workflow_dispatch' }} &&
+      ${{ github.event.inputs.dispatch2 == 'true' }}
+    steps:
+      - run: echo "Three…"
