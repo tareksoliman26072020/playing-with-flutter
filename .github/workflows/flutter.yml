@@ -33,6 +33,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
+          ls
+          pwd
           cd my_app
           flutter pub get
           
