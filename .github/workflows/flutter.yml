@@ -5,29 +5,30 @@ on:
 
 jobs:
   build:
-	  runs-on: ubuntu-latest
-	  steps:
-  	  - name: preparing
-    	  uses: actions/checkout@v4
-   	 
-    	- name: Set Up Flutter
-      	uses: subosito/flutter-action@v2
-    	  with:
-      	  channel: stable
-      	  flutter-version: 3.32.0
-     	 
-  	  - name: Fetch my_app's Flutter Dependencies
-    	  run: |
-      	  cd my_app
-      	  flutter pub get
-     	 
-  	  - name: Build A Release APK
-    	  run: |
-      	  cd my_app
-      	  flutter build apk --release
+    runs-on: ubuntu-latest
+    steps:
+      
+      - name: preparing
+        uses: actions/checkout@v4
 
-  	  - name: Upload The Built APK As Artifact
-    	  uses: actions/upload-artifact@v4
-    	  with:
-      	  name: app-release-apk
-      	  path: my_app/build/app/outputs/flutter-apk/app-release.apk
+      - name: Set Up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          flutter-version: 3.32.0
+ 
+      - name: Fetch my_app's Flutter Dependencies
+        run: |
+          cd my_app
+          flutter pub get
+
+      - name: Build A Release APK
+        run: |
+          cd my_app
+          flutter build apk --release
+
+      - name: Upload The Built APK As Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-release-apk
+          path: my_app/build/app/outputs/flutter-apk/app-release.apk
