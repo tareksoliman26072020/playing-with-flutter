@@ -21,15 +21,10 @@ jobs:
         with:
           channel: stable
           flutter-version: 3.32.0
-      - name: Flutter Version
-        run: flutter --version
-      - name: Where Am I?
-        run: pwd
-      - name: Entering my-app
-        run: cd my_app && pwd
-      - name: Where am I again?
-        run: pwd
-#      - name: Fetch Flutter Dependencies
-#        run: flutter pub get
+      - name: Check Flutter Version && Fetch Dependencies
+        run: >
+          cd my_app
+          flutter --version
+          pwd
 #      - name: Build A Release APK
 #        run: flutter build apk --release
