@@ -16,18 +16,14 @@ on:
         default: 'false'
     
 jobs:
-  set-up-Flutter:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: subosito/flutter-action@v2
-        with:
-          channel: stable
-          flutter-version: 3.32.0
-
   fetch-Flutter-dependencies:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          flutter-version: 3.32.0
       - run: |
           cd my_app
           flutter pub get
@@ -37,6 +33,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          flutter-version: 3.32.0
       - name: build APK
         run: |
           cd my_app
