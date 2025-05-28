@@ -17,6 +17,7 @@ on:
 
 jobs:
   one:
+    if: ${{ github.event_name == 'push' }}
     runs-on: ubuntu-latest
     steps:
       - run: echo "One…"
