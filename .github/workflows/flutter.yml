@@ -32,10 +32,14 @@ jobs:
   fetch-Flutter-dependencies:
     runs-on: ubuntu-latest
     steps:
-      - run: |
+      - name: fetching
+        run: |
           ls
+          echo "=========="
           pwd
+          echo "=========="
           cd my_app
+          echo "=========="
           flutter pub get
           
   build-and-upload-release-APK:
