@@ -23,16 +23,18 @@ jobs:
 
   two:
     runs-on: ubuntu-latest
-    if: >
-      ${{ github.event_name == 'workflow_dispatch' }} &&
-      ${{ github.event.inputs.dispatch1 == 'true' }}
+    if: ${{
+      github.event_name == 'workflow_dispatch' &&
+      github.event.inputs.dispatch1 == 'true' 
+    }}
     steps:
       - run: echo "Two…"
 
   three:
     runs-on: ubuntu-latest
-    if: >
-      ${{ github.event_name == 'workflow_dispatch' }} &&
-      ${{ github.event.inputs.dispatch2 == 'true' }}
+    if: ${{
+      github.event_name == 'workflow_dispatch' &&
+      github.event.inputs.dispatch2 == 'true'
+    }}
     steps:
       - run: echo "Three…"
