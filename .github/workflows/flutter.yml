@@ -58,9 +58,9 @@ jobs:
           flutter pub get
           
       - name: Enabling web
-    run: |
-      cd strength_track
-      flutter config --enable-web
+        run: |
+          cd strength_track
+          flutter config --enable-web
         
       - name: Building
         run: flutter build web
@@ -74,7 +74,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: app-release-apk
-    path: strength_track/build/web.zip
+          path: strength_track/build/web.zip
 
   build_apk:
     runs-on: ubuntu-latest
