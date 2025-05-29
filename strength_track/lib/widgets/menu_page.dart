@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:strength_track/widgets/set_1rm_maxes_page.dart';
 
 class MenuPage extends StatelessWidget {
   const MenuPage({super.key});
@@ -34,9 +35,15 @@ class MenuPage extends StatelessWidget {
                   _buildMenuItem(context, 'Settings', () {
                     // TODO: Navigate to Settings page
                   }),
-                  _buildMenuItem(context, 'Set 1RM Maxes', () {
-                    // TODO: Navigate to Set 1RM Maxes page
-                  }),
+                  _buildMenuItem(
+                    context,
+                    'Set 1RM Maxes',
+                    () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (c) => const Set1RMMaxesPage()),
+                      );}
+                  ),
                   _buildMenuItem(context, 'Add lift', () {
                     // TODO: Navigate to Add lift page
                   }),
