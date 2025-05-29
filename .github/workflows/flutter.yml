@@ -58,9 +58,9 @@ jobs:
           flutter pub get
           
       - name: Enabling web
-        run: |
-          cd strength_track
-          flutter config --enable-web
+    run: |
+      cd strength_track
+      flutter config --enable-web
         
       - name: Building
         run: flutter build web
@@ -71,11 +71,12 @@ jobs:
           zip -r web.zip web
       
       - name: Uploading Artifact
-    	uses: actions/upload-artifact@v4
-    	  with:
-      	    name: app-release-apk
-      	    path: strength_track/build/web.zip
-  build apk:
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-release-apk
+    path: strength_track/build/web.zip
+
+  build_apk:
     runs-on: ubuntu-latest
     if: ${{
       github.event_name == 'workflow_dispatch' &&
