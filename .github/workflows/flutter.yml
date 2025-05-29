@@ -36,7 +36,7 @@ jobs:
       - name: Analyzing
         run: flutter analyze
 
-  build web:
+  build_web:
     runs-on: ubuntu-latest
     if: ${{
       github.event_name == 'workflow_dispatch' &&
