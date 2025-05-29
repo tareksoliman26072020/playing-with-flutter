@@ -2,33 +2,107 @@ name: Flutter
 
 on:
   workflow_dispatch:
+    inputs:
+      dispatch1:
+        description: 'Analyze'
+        required: true
+        default: 'false'
+      dispatch2:
+        description: 'Build Web'
+        required: true
+        default: 'false'
+      dispatch3:
+        description: 'Build APK'
+        required: true
+        default: 'false'
 
 jobs:
-  build:
+  analyze:
     runs-on: ubuntu-latest
+    if: ${{
+      github.event_name == 'workflow_dispatch' &&
+      github.event.inputs.dispatch1 == 'true' }}
     steps:
       
       - name: preparing
         uses: actions/checkout@v4
 
-      - name: Set Up Flutter
+      - name: Seting Up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          flutter-version: 3.32.0
+      
+      - name: Analyzing
+        run: flutter analyze
+
+  build web:
+    runs-on: ubuntu-latest
+    if: ${{
+      github.event_name == 'workflow_dispatch' &&
+      github.event.inputs.dispatch2 == 'true' }}
+    steps:
+      
+      - name: preparing
+        uses: actions/checkout@v4
+
+      - name: Seting Up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          flutter-version: 3.32.0
+      
+      - name: Fetch Flutter Dependencies
+        run: |
+          cd strength_track
+          flutter pub get
+          
+      - name: Enabling web
+        run: |
+          cd strength_track
+          flutter config --enable-web
+        
+      - name: Building
+        run: flutter build web
+      
+      - name: Zipping
+        run: |
+          cd strength_track/build
+          zip -r web.zip web
+      
+      - name: Uploading Artifact
+    	uses: actions/upload-artifact@v4
+    	  with:
+      	    name: app-release-apk
+      	    path: strength_track/build/web.zip
+  build apk:
+    runs-on: ubuntu-latest
+    if: ${{
+      github.event_name == 'workflow_dispatch' &&
+      github.event.inputs.dispatch3 == 'true' }}
+    steps:
+      
+      - name: preparing
+        uses: actions/checkout@v4
+
+      - name: Seting Up Flutter
         uses: subosito/flutter-action@v2
         with:
           channel: stable
           flutter-version: 3.32.0
  
-      - name: Fetch my_app's Flutter Dependencies
+      - name: Fetching Flutter Dependencies
         run: |
-          cd my_app
+          cd strength_track
           flutter pub get
 
-      - name: Build A Release APK
+      - name: Building APK
         run: |
-          cd my_app
+          cd strength_track
           flutter build apk --release
 
-      - name: Upload The Built APK As Artifact
+      - name: Uploading Artifact
         uses: actions/upload-artifact@v4
         with:
           name: app-release-apk
-          path: my_app/build/app/outputs/flutter-apk/app-release.apk
+          path: strength_track/build/app/outputs/flutter-apk/app-release.apk
